@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/memo_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="right"
+        android:layout_margin="3dp"
+        android:background="@drawable/selector_edit"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="test memo" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        tools:text="2022-01-01- 01:01:01"/>
+
+    <TextView
+        android:id="@+id/tv_contents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="36dp"
+        android:paddingTop="3dp"
+        android:paddingStart="7dp"
+        android:paddingEnd="7dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        tools:text="test contents" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="#ddd"
+        android:layout_margin="5dp"/>
+</FrameLayout>

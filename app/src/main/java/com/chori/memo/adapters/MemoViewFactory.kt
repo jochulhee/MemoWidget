@@ -1,16 +1,17 @@
-package com.chori.memo
+package com.chori.memo.adapters
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import io.realm.Realm
-import io.realm.kotlin.where
+import com.chori.memo.repository.MemoRepository
+import com.chori.memo.R
+import com.chori.memo.models.Memo
+import com.chori.memo.utils.EXTRA_ITEM
+import com.chori.memo.utils.GBLog
 
-class MemoViewFactory(
-    private val context: Context,
-    private val intent: Intent): RemoteViewsService.RemoteViewsFactory {
+class MemoViewFactory(private val context: Context): RemoteViewsService.RemoteViewsFactory {
 
     private lateinit var data:MutableList<Memo>
     override fun onCreate() {

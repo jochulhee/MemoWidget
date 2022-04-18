@@ -1,7 +1,11 @@
-package com.chori.memo
+package com.chori.memo.repository
 
 import android.content.Context
 import android.content.Intent
+import com.chori.memo.models.Memo
+import com.chori.memo.utils.GBLog
+import com.chori.memo.utils.REFRESH_ACTION
+import com.chori.memo.utils.WidgetProvider
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.kotlin.createObject

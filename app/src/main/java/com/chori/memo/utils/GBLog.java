@@ -1,4 +1,4 @@
-package com.chori.memo;
+package com.chori.memo.utils;
 /**
  *  Simple log class
  *  - print class name
@@ -8,6 +8,8 @@ package com.chori.memo;
  */
 
 import android.util.Log;
+
+import com.chori.memo.BuildConfig;
 
 public class GBLog
 {
@@ -68,17 +70,14 @@ public class GBLog
 
     private static String buildLogMsg(String message)
     {
-        StackTraceElement ste = Thread.currentThread().getStackTrace()[4];         
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        sb.append(ste.getFileName());
-        sb.append(" > ");
-        sb.append(ste.getMethodName());
-        sb.append(" > #");
-        sb.append(ste.getLineNumber());
-        sb.append("] ");
-        sb.append(message);
-        return sb.toString();
+        StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
+        return "[" +
+                ste.getFileName() +
+                " > " +
+                ste.getMethodName() +
+                " > #" +
+                ste.getLineNumber() +
+                "] " +
+                message;
     }
-
 }

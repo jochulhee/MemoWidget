@@ -1,4 +1,4 @@
-package com.chori.memo
+package com.chori.memo.views
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.chori.memo.repository.MemoRepository
+import com.chori.memo.R
+import com.chori.memo.adapters.MemoListAdapter
 
 class MemoListActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

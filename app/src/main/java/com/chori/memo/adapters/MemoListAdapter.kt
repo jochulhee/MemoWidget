@@ -1,4 +1,4 @@
-package com.chori.memo
+package com.chori.memo.adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.chori.memo.views.MemoEditActivity
+import com.chori.memo.R
+import com.chori.memo.models.Memo
 
 class MemoListAdapter:RecyclerView.Adapter<MemoListAdapter.ViewHolder>() {
 
@@ -26,7 +29,7 @@ class MemoListAdapter:RecyclerView.Adapter<MemoListAdapter.ViewHolder>() {
         }
     }
 
-    public fun setData(data: List<Memo>) {
+    fun setData(data: List<Memo>) {
         memoList = data
         notifyDataSetChanged()
     }

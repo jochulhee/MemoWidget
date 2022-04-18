@@ -1,4 +1,4 @@
-package com.chori.memo
+package com.chori.memo.utils
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -8,6 +8,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
+import com.chori.memo.MemoViewService
+import com.chori.memo.R
+import com.chori.memo.views.MemoEditActivity
 
 const val REFRESH_ACTION = "com.chori.memo.REFRESH_ACTION"
 const val CLICK_ACTION = "com.chori.memo.CLICK_ACTION"
@@ -55,9 +58,6 @@ class WidgetProvider: AppWidgetProvider() {
         } else if (intent.action == REFRESH_ACTION) {
             GBLog.v("TAG", "refresh")
             val appWidgetManager = AppWidgetManager.getInstance(context)
-
-//            val componentName = ComponentName(context.packageName, WidgetProvider::javaClass.name)
-//            val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(context,  WidgetProvider::class.java))
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.lv_widget_memo_list)
         }

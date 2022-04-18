@@ -1,9 +1,13 @@
-package com.chori.memo
+package com.chori.memo.views
 
 import android.os.Bundle
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.chori.memo.repository.MemoRepository
+import com.chori.memo.R
+import com.chori.memo.models.Memo
+import com.chori.memo.utils.GBLog
 import java.text.SimpleDateFormat
 import java.util.*
 

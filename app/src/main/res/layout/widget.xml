@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/rect_white_r5">
+    android:background="@drawable/rect_white_r5_fix">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,9 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/black_fix"
             android:text="메모"
-            android:layout_margin="5dp"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
             android:layout_gravity="center_vertical"/>
 
         <Button
@@ -51,7 +52,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/black_fix"
             android:textStyle="bold"
             android:text="텅..."/>
 

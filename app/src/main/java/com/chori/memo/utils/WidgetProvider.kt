@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.widget.RemoteViews
 import com.chori.memo.MemoViewService
 import com.chori.memo.R
@@ -37,7 +38,11 @@ class WidgetProvider: AppWidgetProvider() {
                 data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
             }
 
-            val templatePendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val templatePendingIntent = if (Build.VERSION.SDK_INT >= 31) {
+                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+            } else
+                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
             views.setPendingIntentTemplate(R.id.lv_widget_memo_list, templatePendingIntent)
 
             views.setOnClickPendingIntent(R.id.btn_edit, templatePendingIntent)
@@ -47,12 +52,16 @@ class WidgetProvider: AppWidgetProvider() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
+        val appWidgetId: Int = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+        GBLog.v("TAG", "appWidgetId = $appWidgetId")
+
         GBLog.i("TAG", "action : ${intent.action}")
         if (intent.action == CLICK_ACTION) {
-            val id: Long = intent.getLongExtra(EXTRA_ITEM, 0)
+            val id: Long = intent.getLongExtra(EXTRA_ITEM, -1)
             GBLog.v("TAG", "click item = $id")
 
             context.startActivity(Intent(context, MemoEditActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 putExtra("index", id)
             })
         } else if (intent.action == REFRESH_ACTION) {
@@ -62,8 +71,6 @@ class WidgetProvider: AppWidgetProvider() {
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.lv_widget_memo_list)
         }
         super.onReceive(context, intent)
-//        val appWidgetId: Int = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
-//        GBLog.v("TAG", "appWidgetId = $appWidgetId")
     }
 
     override fun onEnabled(context: Context?) {

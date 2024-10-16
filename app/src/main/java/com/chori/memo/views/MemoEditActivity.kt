@@ -1,49 +1,55 @@
 package com.chori.memo.views
 
 import android.os.Bundle
-import android.widget.EditText
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.chori.memo.repository.MemoRepository
-import com.chori.memo.R
+import com.chori.memo.databinding.ActivityMemoEditBinding
 import com.chori.memo.models.Memo
 import com.chori.memo.utils.GBLog
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MemoEditActivity: AppCompatActivity() {
+    private lateinit var binding: ActivityMemoEditBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_memo_edit)
+        binding = ActivityMemoEditBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initView()
     }
     private var memo: Memo? = null
     private var edited = false
-    lateinit var title:EditText
-    lateinit var contents:EditText
-
     private fun initView() {
-        title = findViewById(R.id.et_memo_edit_title)
-        contents = findViewById(R.id.et_memo_edit_contents)
-
         val id = intent.getLongExtra("index", -1)
         GBLog.i("TAG", "index : $id")
 
-        if (id > 0)
+        if (id > 0) {
             memo = MemoRepository.getMemo(id)
+
+            // can delete memo
+            binding.btnMemoDelete.visibility = View. VISIBLE
+            binding.btnMemoDelete.setOnClickListener {
+                // delete memo
+                MemoRepository.deleteMemo(this, id)
+                edited = false
+                finish()
+            }
+        }
 
         if (memo == null)
             memo = Memo()
 
-        title.setText(memo!!.title)
-        contents.setText(memo!!.contents)
+        binding.etMemoEditTitle.setText(memo!!.title)
+        binding.etMemoEditContents.setText(memo!!.contents)
 
-        title.addTextChangedListener {
+        binding.etMemoEditTitle.addTextChangedListener {
             edited = true
             GBLog.d("TAG", "title changed")
         }
-        contents.addTextChangedListener {
+        binding.etMemoEditContents.addTextChangedListener {
             edited = true
             GBLog.d("TAG", "contents changed")
         }
@@ -52,8 +58,8 @@ class MemoEditActivity: AppCompatActivity() {
     override fun finish() {
         if (edited) {
             val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA)
-            memo!!.title = title.text.toString()
-            memo!!.contents = contents.text.toString()
+            memo!!.title = binding.etMemoEditTitle.text.toString()
+            memo!!.contents = binding.etMemoEditContents.text.toString()
             memo!!.date = format.format(System.currentTimeMillis())
             MemoRepository.saveMemo(this, memo!!)
         }

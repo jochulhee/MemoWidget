@@ -74,10 +74,14 @@ object MemoRepository {
         realm.close()
     }
 
-    fun deleteMemo(id: Long) {
+    fun deleteMemo(context: Context, id: Long) {
         val realm = Realm.getDefaultInstance()
         realm.executeTransaction {
             it.where<Memo>().equalTo("id", id).findFirst()?.deleteFromRealm()
+
+            context.sendBroadcast(Intent(context, WidgetProvider::class.java).apply {
+                action = REFRESH_ACTION
+            })
         }
         realm.close()
     }
